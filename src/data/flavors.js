@@ -52,7 +52,7 @@ image: "images/vanilla.jpg"
 
 {
 id: 7,
-name: "Mint Chocolate Chip",
+name: "Vanilla Snowflake",
 price: "$7.99",
 description: "smaller  Classic chocolate ice cream  with cookies.",
 duration: "8 weeks",
@@ -61,9 +61,25 @@ image: "images/vanilla.jpg"
 
 {
 id: 8,
-name: "Mint Chocolate Chip",
+name: "Maple syrup",
 price: "$6.00",
-description: "smaller  Classic chocolate ice cream  with cookies.",
+description: "proudly Canadian",
+duration: "8 weeks",
+image: "images/vanilla.jpg"
+},
+{
+id: 9,
+name: "Raspberry Pie",
+price: "$6.00",
+description: "For students in electrical and software",
+duration: "8 weeks",
+image: "images/vanilla.jpg"
+},
+{
+id: 8,
+name: "void",
+price: "$0.00",
+description: "Schroedinger's favourite",
 duration: "8 weeks",
 image: "images/vanilla.jpg"
 },
