@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src = "menu_view.js">   </script>
+</head>
+<body>
+    <header class = "flexbox_homepage_header">   
+        <img src = "./logo.jpeg" alt = "logo" width = 2% height = 2%> <b>Sweet Scoop Ice Cream</b>
+    </header>
+    <div class = "homepage_menu">
+        <a href="./index.html">Home</a>
+    </div>
+<div class="tiles-container">
+    <main>
+    <div>
+    <div class="menu_tiles">
+        <p>Current season:</p>
+            <select class="current-season">
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+                <option value="Fall">Fall</option>
+                <option value="Winter">Winter</option>
+                <option value="Promotions">Promotions</option>
+            </select>
+    </div>
+<br>
+
+
+<div class="menu_tiles">  
+    <h2>Available Flavours</h2>
+     <div class = "flex-wrapper">
+        <tile class="icecream_tiles_available"> 
+            <h3>Vanilla Dream</h3>
+            <p><b>Category: </b>Classic</p>
+            <image src = "./Picture1.webp" class="icecream_image" width = "100" height = "100"> 
+            <p>Rich vanilla bean flavour with a creamy, smooth finish.</p>
+            <p>$3.99 - $6.99</p>
+            <p>Gluten-Free</p>
+            <br>
+                <a class="customize-button" href="./customize_order.html">Customize</a>
+            <br>
+        </tile>
+        <tile class="icecream_tiles_available"> 
+            <h3>Chocolate Bliss</h3>
+            <p><b>Category: </b>Signature</p>
+            <image src = "./Picture1.webp" class="icecream_image" width = "100" height = "100"> 
+            <p>Decadent dark chocolate ice cream made with rich cocoa for a bold, smooth taste.</p>
+            <p>$3.99 - $6.99</p>
+            <p>Gluten-Free</p>
+            <br>
+                <a class="customize-button" href="./customize_order.html">Customize</a>
+            <br>
+        </tile>
+        <tile class="icecream_tiles_available"> 
+            <h3>Strawberry Swirl</h3>
+            <p><b>Category: </b>Classic</p>
+            <image src = "./Picture1.webp" class="icecream_image" width = "100" height = "100"> 
+            <p>Creamy strawberry ice cream blended with real strawberry pieces and a sweet swirl.</p>
+            <p>$3.99 - $6.99</p>
+            <p>Gluten-Free</p>
+            <br>
+                <a class="customize-button" href="./customize_order.html">Customize</a>
+            <br>
+        </tile>
+        <tile class="icecream_tiles_available"> 
+            <h3>Cookies & Cream</h3>
+            <p><b>Category: </b>Classic</p>
+            <image src = "./Picture1.webp" class="icecream_image" width = "100" height = "100"> 
+            <p>Vanilla ice cream packed with crunchy chocolate cookie chunks in every bite.</p>
+            <p>$4.99 - $6.99</p>
+            <p>Contains Gluten</p>
+            <br>
+                <a class="customize-button" href="./customize_order.html">Customize</a>
+            <br>
+        </tile>
+        <tile class="icecream_tiles_available"> 
+            <h3>Mint Chocolate Chip</h3>
+            <p><b>Category: </b>Signature</p>
+            <image src = "./Picture1.webp" class="icecream_image" width = "100" height = "100"> 
+            <p>Cool mint ice cream loaded with crisp chocolate chips for a refreshing twist.</p>
+            <p>$4.99 - $6.99</p>
+            <p>Gluten-Free</p>
+            <br>
+                <a class="customize-button" href="./customize_order.html">Customize</a>
+            <br>
+        </tile>
+        <!-- <tile class="icecream_tiles_available"> 
+            <h3>Mango Tango</h3>
+            <p><b>Category: </b>Fruit</p>
+            <image src = "./Picture1.webp" class="icecream_image" width = "100" height = "100"> 
+            <p>Sweet and tropical mango flavour with a light, fruity finish.</p>
+            <p>$5.99 - $7.99</p>
+            <p>Gluten-Free</p>
+            <br>
+                <a class="customize-button" href="./customize_order.html">Customize</a>
+            <br>
+        </tile> -->
+    </div>
+</div>
+
+<br>
+<div class="menu_tiles">  
+    <h2>Seasonal Specials</h2>
+     <div class = "flex-wrapper">
+        
+       <tile class="icecream_tiles_special"> 
+    <h3>Mango Tango</h3>
+    <img src="./Picture1.webp" class="icecream_image" width="100" height="100"> 
+    <p>$5.99</p>
+    <br>
+    <button class="add-button" onclick="addFlavour('Mango Tango')">Add</button>
+    <button class="remove-button" onclick="removeFlavour('Mango Tango')">Remove</button>
+    </tile>
+
+    <tile class="icecream_tiles_special"> 
+    <h3>Vanilla Snowflake</h3>
+    <img src="./Picture1.webp" class="icecream_image" width="100" height="100"> 
+    <p>$7.99</p>
+    <br>
+    <button class="add-button" onclick="addFlavour('Vanilla Snowflake')">Add</button>
+    <button class="remove-button" onclick="removeFlavour('Vanilla Snowflake')">Remove</button>
+    </tile>
+
+    <tile class="icecream_tiles_special"> 
+    <h3>Maple Syrup</h3>
+    <img src="./Picture1.webp" class="icecream_image" width="100" height="100"> 
+    <p>$6.00</p>
+    <br>
+    <button class="add-button" onclick="addFlavour('Maple Syrup')">Add</button>
+    <button class="remove-button" onclick="removeFlavour('Maple Syrup')">Remove</button>
+    </tile>
+    </div>
+    </div>
+<br>
+<div class="cart">  
+    <h2>Cart</h2>
+     <ul id="orderList"> No items in cart</ul>
+    </div>
+</div>
+
+
+</main>
+    <footer class="footer_menu">
+        <p> &copy; 2026 Sweet Scoop Corp. All rights reserved. Created by Khan and Ryabinkin.</p>
+    </footer>
+</body>
