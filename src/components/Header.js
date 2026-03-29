@@ -6,7 +6,7 @@ function Header() {
     <>
       <header>
         <div className="flexbox_homepage_header">
-          <img width="50px" height="50px" src="/logo.jpeg" alt="Sweet Scoop Logo" />
+          <img width="50px" height="50px" src="/images/logo.jpeg" alt="Sweet Scoop Logo" />
           <h2>Sweet Scoop Ice Cream Shop</h2>
         </div>
       </header>
