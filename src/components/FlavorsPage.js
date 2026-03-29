@@ -46,12 +46,16 @@ function OrderItem({id,  name, quantity, price, onRemove }) {
 }
 
 function OrderList({ cart, handleRemoveClick }) {
+  var total_price = 0;
+  for (const el of cart)
+  {
+    total_price += parseFloat(el.price.slice(1));
+  }
   return (
     <div className="order-list">
       <h3>Shopping Cart</h3>
-      {cart.length === 0 ? (
-        <p>Cart is empty</p>
-      ) : (
+      {cart.length === 0 ? (<p>Cart is empty</p>)
+       : (
         cart.map((item) => (
           <OrderItem
             id={item.id}
@@ -62,6 +66,7 @@ function OrderList({ cart, handleRemoveClick }) {
           />
         ))
       )}
+      <h4>Total: {total_price.toFixed(2)}</h4>
     </div>
   );
 }
@@ -82,13 +87,13 @@ function FlavorsPage() {
     });
   };  
   const handleRemoveClick = ({ id, name, price }) => {
-    setCart((prevCart) => {
-             
-        return prevCart.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-        );
-      
-    });
+    setCart((prevCart) =>
+    prevCart
+      .map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+      )
+      .filter((item) => item.quantity > 0) // remove items with 0 quantity
+  );
   }; 
   return (
     <div className="flavors-page">
@@ -97,7 +102,7 @@ function FlavorsPage() {
         <FlavorCatalog handleAddClick={handleAddClick} />
         <OrderList cart={cart} handleRemoveClick = {handleRemoveClick}/>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }
