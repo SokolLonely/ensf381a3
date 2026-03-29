@@ -77,7 +77,7 @@ function LoginForm() {
           />
         </div>
         <button className="login-button" onClick={handleLogin}>Login</button>
-        <a href="#forgot">Forgot Password?</a>
+        <a>Forgot Password?</a>
         {message && <DisplayStatus type={messageType} message={message} />}
       </div>
     </main>
