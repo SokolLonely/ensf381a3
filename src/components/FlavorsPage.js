@@ -39,7 +39,7 @@ function OrderList()
     </div>
   )
 }
-function Flavors() {
+function FlavorsPage() {
   return (
     <div className="flavors-page">
 <Header />
@@ -52,4 +52,4 @@ function Flavors() {
   );
 }
 
-export default Flavors;
+export default FlavorsPage;
