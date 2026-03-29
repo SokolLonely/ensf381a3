@@ -29,7 +29,7 @@ function MainSection() {
         </p>
       </section>
 
-      <section>
+      <div>
         <h3 className="center_home">Featured Flavors</h3>
         <div className="flavorgrid">
           {featuredFlavors.map((flavor) => (
@@ -41,9 +41,9 @@ function MainSection() {
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      <section>
+      <div>
         <h3 className="center_home">Customer Reviews</h3>
         {featuredReviews.map((review, index) => (
           <div key={index} style={{ marginBottom: '15px' }} className="center_home">
@@ -52,7 +52,7 @@ function MainSection() {
             <p><em>{review.review}</em></p>
           </div>
         ))}
-      </section>
+      </div>
     </main>
   );
 }
