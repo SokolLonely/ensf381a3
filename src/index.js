@@ -1,5 +1,5 @@
 // Group 4
-// Simon Ryabinkin ()
+// Simon Ryabinkin (30253259)
 // Basema Khan (30204130)
 
 import React from 'react';
