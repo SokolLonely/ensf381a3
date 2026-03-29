@@ -3,16 +3,15 @@ const flavors = [
 id: 1,
 name: "Vanilla Dream",
 price: "$4.99",
-description: " Classic creamy vanilla ice cream made with fresh ingredients.",
+description: "Smooth and creamy classic vanilla made with real vanilla bean.",
 duration: "8 weeks",
 image: "images/vanilla.jpg"
 },
-// Add 9 more flavors...
 {
 id: 2,
 name: "Chocolate Bliss",
 price: "$4.99",
-description: " Classic creamy chocolate ice cream made with fresh ingredients.",
+description: "Rich, velvety chocolate ice cream made with premium cocoa.",
 duration: "8 weeks",
 image: "images/chocolate.jpg"
 },
@@ -20,7 +19,7 @@ image: "images/chocolate.jpg"
 id: 3,
 name: "Strawberry Swirl",
 price: "$4.99",
-description: " Classic creamy strawberry ice cream made with fresh ingredients.",
+description: "Fresh strawberry ice cream swirled with real fruit pieces.",
 duration: "8 weeks",
 image: "images/strawberry.jpg"
 },
@@ -28,7 +27,7 @@ image: "images/strawberry.jpg"
 id: 4,
 name: "Cookies & Cream",
 price: "$4.99",
-description: " Classic creamy  ice cream  with cookies.",
+description: "Creamy vanilla ice cream loaded with chunks of chocolate cookie.",
 duration: "8 weeks",
 image: "images/vanilla.jpg"
 },
@@ -36,34 +35,31 @@ image: "images/vanilla.jpg"
 id: 5,
 name: "Mint Chocolate Chip",
 price: "$4.99",
-description: "smaller  Classic chocolate ice cream  with cookies.",
+description: "Cool refreshing mint ice cream packed with chocolate chips.",
 duration: "8 weeks",
 image: "images/mint.jpg"
 },
-
 {
 id: 6,
 name: "Mango Tango",
 price: "$5.99",
-description: "smaller  Classic chocolate ice cream  with cookies.",
+description: "Tropical mango ice cream bursting with fresh fruity flavour.",
 duration: "8 weeks",
 image: "images/vanilla.jpg"
 },
-
 {
 id: 7,
 name: "Vanilla Snowflake",
 price: "$7.99",
-description: "smaller  Classic chocolate ice cream  with cookies.",
+description: "Delicate vanilla ice cream topped with festive rainbow sprinkles.",
 duration: "8 weeks",
 image: "images/vanilla.jpg"
 },
-
 {
 id: 8,
-name: "Maple syrup",
+name: "Maple Syrup",
 price: "$6.00",
-description: "Proudly Canadian; made with local maple syrup.",
+description: "Proudly Canadian ice cream crafted with locally sourced maple syrup.",
 duration: "8 weeks",
 image: "images/chocolate.jpg"
 },
@@ -71,18 +67,17 @@ image: "images/chocolate.jpg"
 id: 9,
 name: "Raspberry Pie",
 price: "$6.00",
-description: "For all the strawberry lovers out there craving a richer kick.",
+description: "Tangy raspberry ice cream with a buttery pie crust swirl.",
 duration: "8 weeks",
 image: "images/strawberry.jpg"
 },
 {
 id: 10,
 name: "Rainbow Unicorn",
-price: "$0.00",
-description: "Lush tropical flavours blended together in a rainbow swirl!",
+price: "$5.99",
+description: "A magical blend of tropical fruits swirled into a colourful treat.",
 duration: "8 weeks",
 image: "images/mint.jpg"
 },
-//add 2 more
 ];
 export default flavors;

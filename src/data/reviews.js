@@ -1,26 +1,26 @@
 const reviews = [
 {
 customerName: "Alice Johnson",
-flavorName: " Vanilla Dream",
+flavorName: "Vanilla Dream",
 review: "The ice cream was delicious and very creamy!",
 rating: 5
 },
-// Add 3 more reviews...
+
 {
 customerName: "Jippy Morgan",
-flavorName: " Vanilla Dream",
-review: "better than in high school",
-rating: 3
-},
-{
-customerName: "Iraj",
-flavorName: " Vanilla Dream",
-review: "really good",
+flavorName: "Vanilla Dream",
+review: "Simple, comforting flavour! Makes me nostalgic for the good old days ...",
 rating: 4
 },
 {
+customerName: "Iraj",
+flavorName: "Chocoloate Bliss",
+review: "Decadent chocolate flavour I always enjoy! Service is a little slow.",
+rating: 3
+},
+{
 customerName: "Donald",
-flavorName: " Vanilla Dream",
+flavorName: "Maple Syrup",
 review: "Awful customer service",
 rating: 1
 },
