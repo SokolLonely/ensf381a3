@@ -1,22 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Header() {
-  return (
-    <>
-      <header>
-        <div className="flexbox_homepage_header">
-            <img src="/logo.jpeg" alt="Sweet Scoop Logo" style={{ width: '25px'}} />
-            <h2>Sweet Scoop Ice Cream Shop</h2>
+  return (<header>
+    <div className="flexbox_homepage_header">
+        <img
+          width="2%"
+          height="2%"
+          
+          src="public\logo.jpeg"/>
+        <b>Sweet Scoop Ice Cream</b>
         </div>
-      </header>
-      <div className="homepage_menu">
-        <Link to="/">Home</Link>
+        <div className = "homepage_menu">
+        <Link to="/">Homepage</Link>
         <Link to="/flavors">Flavors</Link>
         <Link to="/login">Login</Link>
-      </div>
-    </>
-  );
+    </div>
+    </header>
+    
+      );
 }
 
 export default Header;
