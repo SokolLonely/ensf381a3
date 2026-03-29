@@ -6,7 +6,7 @@ function Header() {
     <>
       <header>
           <img width="50px" height="50px" src="/images/logo.jpeg" alt="Sweet Scoop Logo" />
-          <h2>Sweet Scoop Ice Cream Shop</h2>
+          <h1>Sweet Scoop Ice Cream Shop</h1>
       </header>
       <div className="navbar">
         <Link to="/">Home</Link>

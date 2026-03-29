@@ -19,7 +19,7 @@ function MainSection() {
   };
 
   return (
-    <div className="main-section">
+    <div className="mainsection">
       <div>
         <h3>About Sweet Scoop Ice Cream</h3>
         <p>
