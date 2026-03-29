@@ -1,54 +1,109 @@
 import Header from "./Header";
 import Footer from "./Footer";
-function FlavorItem(id,
-name,
-price,
-image)
-{
-  return(
-    <div className="flavorcard">
-     <img src = {image}/>
-     <p>{name}</p>
-     <p>{price}</p>
-     <p>quantity = 1</p>
-    </div>
-  )
+import { useState } from "react";
+import flavors from "../data/flavors";
 
-}
-function OrderItem()
-{
-  return(
-    <div>
-      order item placeholder
+function FlavorItem({ id, name, price, image, description, onAdd }) {
+  const [showDescription, setShowDescription] = useState(false);
+
+  return (
+    <div
+      className="flavorcard"
+      onMouseEnter={() => setShowDescription(true)}
+      onMouseLeave={() => setShowDescription(false)}
+    >
+      <img src={image} alt={name} />
+      <h4>{name}</h4>
+      <p>{price}</p>
+      {showDescription && <p>{description}</p>}
+      <button onClick={() => onAdd({ id, name, price })}>Add to order</button>
     </div>
-  )
+  );
 }
-function FlavorCatalog()
-{
-  return(
-    <div>
-      flavor Catalog placeholder
+function FlavorCatalog({handleAddClick})
+ { return(
+   <div className="flavor-grid">
+          {flavors.map((ice_cream) => (
+            <FlavorItem
+              key={ice_cream.id}
+              {...ice_cream}
+              onAdd={handleAddClick}
+            />
+          ))}
+        </div>
+  ) 
+}
+function OrderItem({id,  name, quantity, price, onRemove }) {
+  console.log("price ={"+ price+ "}, qunatity = {"+quantity +"}");
+  return (
+    <div className="order-item">
+      <p>{name}</p>
+      <p>Quantity: {quantity}</p>
+      <p>Total: ${(price.slice(1) * quantity).toFixed(2)}</p>
+      <button onClick={() => onRemove({ id, name, price })}> Remove item </button>
     </div>
-  )
+  );
 }
-function OrderList()
-{
-  return(
-    <div>
-      order list placeholder
+
+function OrderList({ cart, handleRemoveClick }) {
+  var total_price = 0;
+  for (const el of cart)
+  {
+    total_price += parseFloat(el.price.slice(1));
+  }
+  return (
+    <div className="order-list">
+      <h3>Shopping Cart</h3>
+      {cart.length === 0 ? (<p>Cart is empty</p>)
+       : (
+        cart.map((item) => (
+          <OrderItem
+            id={item.id}
+            name={item.name}
+            quantity={item.quantity}
+            price={item.price}
+            onRemove={handleRemoveClick}
+          />
+        ))
+      )}
+      <h4>Total: {total_price.toFixed(2)}</h4>
     </div>
-  )
+  );
 }
+
 function FlavorsPage() {
+  const [cart, setCart] = useState([]);
+  const handleAddClick = ({ id, name, price }) => {
+    setCart((prevCart) => {
+      const existsItem = prevCart.find((item) => item.id === id);
+      if (existsItem) {
+
+        return prevCart.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        return [...prevCart, { id, name, price, quantity: 1 }];
+      }
+    });
+  };  
+  const handleRemoveClick = ({ id, name, price }) => {
+    setCart((prevCart) =>
+    prevCart
+      .map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+      )
+      .filter((item) => item.quantity > 0) // remove items with 0 quantity
+  );
+  }; 
   return (
     <div className="flavors-page">
-<Header />
-<div className="content">
-<FlavorCatalog />
-<OrderList />
-</div>
-<Footer />
-</div>
+      <Header />
+      <div className="content">
+        <FlavorCatalog handleAddClick={handleAddClick} />
+        <OrderList cart={cart} handleRemoveClick = {handleRemoveClick}/>
+      </div>
+      <Footer/>
+    </div>
   );
 }
 
