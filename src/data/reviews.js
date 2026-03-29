@@ -15,13 +15,13 @@ rating: 4
 {
 customerName: "Iraj",
 flavorName: "Chocoloate Bliss",
-review: "Decadent chocolate flavour I always enjoy! Service is a little slow.",
+review: "Decadent chocolate flavour I always enjoy! Service is a little slow though.",
 rating: 3
 },
 {
 customerName: "Donald",
 flavorName: "Maple Syrup",
-review: "Awful customer service",
+review: "Decent flavour but customer service is terrible.",
 rating: 1
 },
 
