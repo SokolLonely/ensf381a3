@@ -2,16 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./components/Homepage";
-import FlavorsPage from "./components/FlavorsPage";
-import LoginPage from "./components/LoginPage";
+// import FlavorsPage from "./components/FlavorsPage";
+// import LoginPage from "./components/LoginPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/flavors" element={<FlavorsPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        {/* <Route path="/flavors" element={<FlavorsPage />} />
+        <Route path="/login" element={<LoginPage />} /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom";
 
 function Header() {
   return (<header>
-    <div class="flexbox_homepage_header">
+    <div className="flexbox_homepage_header">
         <img
           width="2%"
           height="2%"
-          src="/images/logo.jpeg"/>
+          
+          src="public\logo.jpeg"/>
         <b>Sweet Scoop Ice Cream</b>
         </div>
-        <div class = "homepage_menu">
+        <div className = "homepage_menu">
         <Link to="/">Homepage</Link>
         <Link to="/flavors">Flavors</Link>
         <Link to="/login">Login</Link>
