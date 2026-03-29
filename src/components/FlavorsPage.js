@@ -49,7 +49,7 @@ function OrderList({ cart, handleRemoveClick }) {
   var total_price = 0;
   for (const el of cart)
   {
-    total_price += parseFloat(el.price.slice(1));
+    total_price += parseFloat(el.price.slice(1)) *el.quantity;
   }
   return (
     <div className="order-list">
