@@ -56,32 +56,34 @@ function LoginForm() {
     }
   };
 
-  return (
-    <main>
-      <div className="login">
-        <h2>Login</h2>
-        <div>
-          <label>Username: </label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div style={{ marginTop: '10px' }}>
-          <label>Password: </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button className="login-button" onClick={handleLogin}>Login</button>
-        <a>Forgot Password?</a>
-        {message && <DisplayStatus type={messageType} message={message} />}
+return (
+  <div style={{ textAlign: 'center', marginTop: '40px', minHeight: '70vh' }}>
+    <div className="login">
+      <h2>Login</h2>
+      <div>
+        <label>Username: </label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
       </div>
-    </main>
-  );
+      <div style={{ marginTop: '10px' }}>
+        <label>Password: </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <button className="login-button" onClick={handleLogin}>Login</button>
+      <div>
+        <a>Forgot Password?</a>
+      </div>
+      {message && <DisplayStatus type={messageType} message={message} />}
+    </div>
+  </div>
+);
 }
 
 export default LoginForm;

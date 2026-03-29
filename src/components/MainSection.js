@@ -19,10 +19,10 @@ function MainSection() {
   };
 
   return (
-    <main className="homepage_main">
-      <div class ="center_home">
+    <div className="main-section">
+      <div>
         <h3>About Sweet Scoop Ice Cream</h3>
-        <p className="center_home">
+        <p>
           Sweet Scoop Ice Cream is a family-owned business that has been serving delicious ice cream
           since 1990. We pride ourselves on using only the freshest ingredients to create our unique
           flavors. Come visit us and treat yourself to a sweet scoop today!
@@ -30,7 +30,7 @@ function MainSection() {
       </div>
 
       <div>
-        <h3 className="center_home">Featured Flavors</h3>
+        <h3>Featured Flavors</h3>
         <div className="flavorgrid">
           {featuredFlavors.map((flavor) => (
             <div key={flavor.id} className="flavorcard">
@@ -44,16 +44,16 @@ function MainSection() {
       </div>
 
       <div>
-        <h3 className="center_home">Customer Reviews</h3>
+        <h3>Customer Reviews</h3>
         {featuredReviews.map((review, index) => (
-          <div key={index} style={{ marginBottom: '15px' }} className="center_home">
-            <h3><em>{review.customerName}</em></h3>
-            <p><em>Rating: {renderStars(review.rating)}</em></p>
-            <p><em>{review.review}</em></p>
+          <div key={index} style={{ marginBottom: '15px' }}>
+            <h3><i>{review.customerName}</i></h3>
+            <p><i>Rating: {renderStars(review.rating)}</i></p>
+            <p><i>{review.review}</i></p>
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
 
