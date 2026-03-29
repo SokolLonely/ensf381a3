@@ -76,7 +76,7 @@ duration: "8 weeks",
 image: "images/vanilla.jpg"
 },
 {
-id: 8,
+id: 10,
 name: "void",
 price: "$0.00",
 description: "Schroedinger's favourite",
