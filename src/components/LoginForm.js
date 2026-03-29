@@ -57,8 +57,8 @@ function LoginForm() {
   };
 
 return (
-  <div style={{ textAlign: 'center', marginTop: '40px', minHeight: '70vh' }}>
-    <div className="login">
+  <div className="main-section" style={{ minHeight: '72vh' }}>
+    <div>
       <h2>Login</h2>
       <div>
         <label>Username: </label>
@@ -76,7 +76,7 @@ return (
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button className="login-button" onClick={handleLogin}>Login</button>
+      <button onClick={handleLogin}>Login</button>
       <div>
         <a>Forgot Password?</a>
       </div>
