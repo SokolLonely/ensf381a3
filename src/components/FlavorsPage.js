@@ -54,7 +54,7 @@ function OrderList({ cart, handleRemoveClick }) {
   return (
     <div className="order-list">
       <h3>Shopping Cart</h3>
-      {cart.length === 0 ? (<p>Cart is empty</p>)
+      {cart.length === 0 ? (<p>No items in your order</p>)
        : (
         cart.map((item) => (
           <OrderItem
@@ -66,7 +66,10 @@ function OrderList({ cart, handleRemoveClick }) {
           />
         ))
       )}
-      <h4>Total: {total_price.toFixed(2)}</h4>
+
+      {total_price > 0 && (
+        <h4>Total: ${total_price.toFixed(2)}</h4>
+      )}
     </div>
   );
 }
