@@ -63,23 +63,23 @@ image: "images/vanilla.jpg"
 id: 8,
 name: "Maple syrup",
 price: "$6.00",
-description: "proudly Canadian",
+description: "Proudly Canadian; made with local maple syrup.",
 duration: "8 weeks",
-image: "images/strawberry.jpg"
+image: "images/chocolate.jpg"
 },
 {
 id: 9,
 name: "Raspberry Pie",
 price: "$6.00",
-description: "For students in electrical and software",
+description: "For all the strawberry lovers out there craving a richer kick.",
 duration: "8 weeks",
-image: "images/vanilla.jpg"
+image: "images/strawberry.jpg"
 },
 {
 id: 10,
-name: "void",
+name: "Rainbow Unicorn",
 price: "$0.00",
-description: "Schroedinger's favourite",
+description: "Lush tropical flavours blended together in a rainbow swirl!",
 duration: "8 weeks",
 image: "images/mint.jpg"
 },

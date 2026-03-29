@@ -20,14 +20,14 @@ function MainSection() {
 
   return (
     <main className="homepage_main">
-      <section>
+      <div class ="center_home">
         <h3>About Sweet Scoop Ice Cream</h3>
         <p className="center_home">
           Sweet Scoop Ice Cream is a family-owned business that has been serving delicious ice cream
           since 1990. We pride ourselves on using only the freshest ingredients to create our unique
           flavors. Come visit us and treat yourself to a sweet scoop today!
         </p>
-      </section>
+      </div>
 
       <div>
         <h3 className="center_home">Featured Flavors</h3>
