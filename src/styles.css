@@ -133,6 +133,24 @@ input[type="password"]{
     padding-left: 14px;
 }
 
+.flavorgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+  margin: 20px;
+}
+
+.flavorcard {
+  background: #fff8ee;
+  border: 2px solid #e4b48c;
+  border-radius: 10px;
+  padding: 15px;
+  width: 180px;
+  text-align: center;
+  margin: 0 auto;
+}
+
 .submit-selection-button{
     display: flex;
     justify-content: center;
