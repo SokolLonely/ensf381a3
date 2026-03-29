@@ -14,7 +14,7 @@ name: "Chocolate Bliss",
 price: "$4.99",
 description: " Classic creamy chocolate ice cream made with fresh ingredients.",
 duration: "8 weeks",
-image: "images/vanilla.jpg"
+image: "images/chocolate.jpg"
 },
 {
 id: 3,
@@ -22,7 +22,7 @@ name: "Strawberry Swirl",
 price: "$4.99",
 description: " Classic creamy strawberry ice cream made with fresh ingredients.",
 duration: "8 weeks",
-image: "images/vanilla.jpg"
+image: "images/strawberry.jpg"
 },
 {
 id: 4,
@@ -38,7 +38,7 @@ name: "Mint Chocolate Chip",
 price: "$4.99",
 description: "smaller  Classic chocolate ice cream  with cookies.",
 duration: "8 weeks",
-image: "images/vanilla.jpg"
+image: "images/mint.jpg"
 },
 
 {
@@ -65,7 +65,7 @@ name: "Maple syrup",
 price: "$6.00",
 description: "proudly Canadian",
 duration: "8 weeks",
-image: "images/vanilla.jpg"
+image: "images/strawberry.jpg"
 },
 {
 id: 9,
@@ -81,7 +81,7 @@ name: "void",
 price: "$0.00",
 description: "Schroedinger's favourite",
 duration: "8 weeks",
-image: "images/vanilla.jpg"
+image: "images/mint.jpg"
 },
 //add 2 more
 ];
