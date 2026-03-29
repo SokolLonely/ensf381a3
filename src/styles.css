@@ -13,8 +13,6 @@ body{
     align-items: center;/* vertical */
     gap: 10px;
     padding: 15px 30px;
-    border-bottom: 3px solid #e4b48c;
-
 }
 .homepage_menu
 {
@@ -149,6 +147,16 @@ input[type="password"]{
   width: 180px;
   text-align: center;
   margin: 0 auto;
+}
+
+.order-list{
+  background: #fff8ee;
+  border: 2px solid #e4b48c;
+  border-radius: 10px;
+  padding: 15px;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .submit-selection-button{
