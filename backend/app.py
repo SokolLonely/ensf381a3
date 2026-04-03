@@ -2,6 +2,7 @@ users = []
 import bcrypt
 import flask
 import flask_cors
+import re
 
 app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -75,3 +76,49 @@ user2 = {
 }
 users.append(user1)
 users.append(user2)
+def is_valid_username(username):
+    pattern = r"^[A-Za-z][A-Za-z0-9_-]{2,19}$"
+    return re.match(pattern, username) is not None
+
+
+def is_valid_email(email):
+    pattern = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+    
+    return re.match(pattern, email) is not None
+def is_valid_password(password):
+    if len(password) < 8:
+        return False
+    if not re.search(r"[A-Z]", password):
+        return False
+    if not re.search(r"[a-z]", password):
+        return False
+    if not re.search(r"[0-9]", password):
+        return False
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        return False
+    return True
+def registration(username, email, password):
+    if not is_valid_username(username):
+        return {"success": False, "error": "Invalid username format"}, 400
+    if not is_valid_email(email):
+        return {"success": False, "error": "Invalid email format"}, 400
+    if not is_valid_password(password):
+        return {"success": False, "error": "Invalid password format"}, 400
+    if any(user['username'] == username for user in users):
+        return {"success": False, "error": "Username already exists"}, 400
+    if any(user['email'] == email for user in users):
+        return {"success": False, "error": "Email already exists"}, 400
+    password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    new_user = {
+        "id": len(users) + 1,
+        "username": username,
+        "email": email,
+        "password_hash": password_hash.decode('utf-8'),
+        "cart": [],
+        "orders": []
+    }
+    users.append(new_user)
+    return {"success": True,"message": "Registration successful."}, 201
+
+
+
