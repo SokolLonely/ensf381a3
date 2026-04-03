@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import flavors from "../data/flavors";
 
 function FlavorItem({ id, name, price, image, description, onAdd }) {
@@ -16,7 +16,7 @@ function FlavorItem({ id, name, price, image, description, onAdd }) {
       <h4>{name}</h4>
       <p>{price}</p>
       {showDescription && <p>{description}</p>}
-      <button onClick={() => onAdd({ id, name, price })}>Add to order</button>
+      <button onClick={() => onAdd({ id, name, price })}>Add to Order</button>
     </div>
   );
 }
@@ -40,7 +40,7 @@ function OrderItem({id,  name, quantity, price, onRemove }) {
       <p>{name}</p>
       <p>Quantity: {quantity}</p>
       <p>Total: ${(price.slice(1) * quantity).toFixed(2)}</p>
-      <button onClick={() => onRemove({ id, name, price })}> Remove item </button>
+      <button className="remove" onClick={() => onRemove({ id, name, price })}> Remove item </button>
     </div>
   );
 }
@@ -75,7 +75,13 @@ function OrderList({ cart, handleRemoveClick }) {
 }
 
 function FlavorsPage() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
   const handleAddClick = ({ id, name, price }) => {
     setCart((prevCart) => {
       const existsItem = prevCart.find((item) => item.id === id);
