@@ -233,4 +233,19 @@ def update_cart(userId, flavorId, quantity):
 
     return {"success": False, "message": "Item not found in cart"}, 400
 
+@app.route("/cart", methods=["DELETE"])
+def delete_from_cart(userId, flavorId): #def delete__cart(userId, flavorId):
+    user = get_user(userId)
+    if not user:
+        return {"success": False, "message": "User not found"}, 400
 
+    user["cart"] = [ #all except for those that have flavorid
+        item for item in user["cart"]
+        if item["flavorId"] != flavorId
+    ]
+
+    return {
+        "success": True,
+        "message": "Flavor removed from cart.",
+        "cart": user["cart"]
+    }, 200
