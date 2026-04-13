@@ -5,7 +5,7 @@ import flask_cors
 import re
 import json
 import random
-import time
+import datetime
 app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = flask_cors.CORS(app)
@@ -102,7 +102,12 @@ def is_valid_password(password):
 
 
 @app.route("/signup", methods=["POST"])
-def registration(username, email, password):
+def registration():
+    data = flask.request.get_json()
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
+
     if not is_valid_username(username):
         return {"success": False, "message": "Invalid username format"}, 400
     if not is_valid_email(email):
@@ -126,7 +131,11 @@ def registration(username, email, password):
     return {"success": True,"message": "Registration successful."}, 201
 
 @app.route("/login", methods=["POST"])
-def login(username, password):
+def login():
+    data = flask.request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
     currentUser = None
     for el in users:
         if el["username"] == username:
@@ -138,7 +147,10 @@ def login(username, password):
     if bcrypt.checkpw(password.encode('utf-8'), currentUser["password_hash"].encode('utf-8')):
 
         return { "success": True, "message": "Login successful.", "userId": currentUser["id"], "username": currentUser["username"]}, 200
-
+    else:
+        return {
+                "success": False,
+                "message": "Invalid username or password."}, 400
 
 @app.route("/reviews", methods=["GET"])
 def reviews():
@@ -149,7 +161,7 @@ def reviews():
         return {
 "success": True,
 "message": "Reviews loaded.",
-"reviews": rv}, 201
+"reviews": rv}, 200
   except:
     return { "success": False}, 400
     
@@ -161,7 +173,7 @@ def flavors():
         return {
 "success": True,
 "message": "Flavors loaded.",
-"flavors": flavors}, 201
+"flavors": flavors}, 200
   except:
     return { "success": False}, 400
 
@@ -175,7 +187,7 @@ def get_user(userId):
 @app.route("/cart", methods=["GET"])
 def get_cart():
     userId = flask.request.args.get("userId") 
-    user = get_user(userId)
+    user = get_user(int(userId))
     if not user:
         return {"success": False, "message": "User not found"}, 400
 
@@ -188,7 +200,10 @@ def get_cart():
 
 
 @app.route("/cart", methods=["POST"])
-def add_to_cart(userId, flavor):
+def add_to_cart():
+    data = flask.request.get_json()
+    userId = data.get("userId")
+    flavor = data.get("flavor")
     user = get_user(userId)
     if not user:
         return {"success": False, "message": "User not found"}, 400
@@ -211,7 +226,11 @@ def add_to_cart(userId, flavor):
 
 
 @app.route("/cart", methods=["PUT"])
-def update_cart(userId, flavorId, quantity):
+def update_cart():
+    data = flask.request.get_json()
+    userId = data.get("userId")
+    flavorId = data.get("flavorId")
+    quantity = data.get("qunatity")
     #alidate that the user exists.
     user = get_user(userId)
     if not user:
@@ -236,7 +255,11 @@ def update_cart(userId, flavorId, quantity):
     return {"success": False, "message": "Item not found in cart"}, 400
 
 @app.route("/cart", methods=["DELETE"])
-def delete_from_cart(userId, flavorId): #def delete__cart(userId, flavorId):
+def delete_from_cart(): #def delete__cart(userId, flavorId):
+    data = flask.request.get_json()
+    userId = data.get("userId")
+    flavorId = data.get("flavorId")
+
     user = get_user(userId)
     if not user:
         return {"success": False, "message": "User not found"}, 400
@@ -269,7 +292,7 @@ def place_orders(userId):
         "orderId": new_order_id,
         "items": user["cart"].copy(),
         "total": round(total, 2),
-        "timestamp": time.now().strftime("%Y-%m-%d %H:%M:%S")
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     user["orders"].append(order)
 
