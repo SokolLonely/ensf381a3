@@ -121,4 +121,19 @@ def registration(username, email, password):
     return {"success": True,"message": "Registration successful."}, 201
 
 
+def login(username, password):
+    currentUser = None
+    for el in users:
+        if el["username"] == username:
+            currentUser = el
+    if currentUser == None:
+        return {
+                "success": False,
+                "message": "Invalid username or password."}, 400
+    if currentUser["password_hash"] == bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()):
+        { "success": True, "message": "Login successful.", "userId": currentUser["id"], "username": currentUser["username"]}, 201
+
+
+
+
 
