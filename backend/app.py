@@ -164,7 +164,23 @@ def flavors():
   except:
     return { "success": False}, 400
 
-    
+def get_user(userId):
+    for user in users:
+        if user["id"] == userId:
+            return user
+    return None
 
+
+@app.route("/cart", methods=["GET"])
+def get_cart(userId):
+    user = get_user(userId)
+    if not user:
+        return {"success": False, "message": "User not found"}, 400
+
+    return {
+        "success": True,
+        "message": "Cart loaded.",
+        "cart": user["cart"]
+    }, 200
 
 
