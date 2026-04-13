@@ -184,3 +184,53 @@ def get_cart(userId):
     }, 200
 
 
+
+@app.route("/cart", methods=["POST"])
+def add_to_cart(userId, flavor):
+    user = get_user(userId)
+    if not user:
+        return {"success": False, "message": "User not found"}, 400
+
+    for item in user["cart"]:
+        if item["flavorId"] == flavor["id"]:
+            return {"success": False, "message": "Item already in cart"}, 400
+    user["cart"].append({
+        "flavorId": flavor["id"],
+        "name": flavor["name"],
+        "price": flavor["price"],
+        "quantity": 1
+    })
+
+    return {
+        "success": True,
+        "message": "Flavor added to cart.",
+        "cart": user["cart"]
+    }, 200
+
+
+@app.route("/cart", methods=["PUT"])
+def update_cart(userId, flavorId, quantity):
+    #alidate that the user exists.
+    user = get_user(userId)
+    if not user:
+        return {"success": False, "message": "User not found"}, 400
+#• Validate that the flavor exists in the user’s cart.
+#• Validate that quantity >= 1.
+    if quantity < 1:
+        return {"success": False, "message": "Invalid quantity"}, 400
+
+#• Update the cart item to the exact quantity provided.
+
+    for item in user["cart"]:
+        if item["flavorId"] == flavorId:
+            item["quantity"] = quantity
+            #• Return the updated cart and a message.
+            return {
+                "success": True,
+                "message": "Cart updated successfully.",
+                "cart": user["cart"]
+            }, 200
+
+    return {"success": False, "message": "Item not found in cart"}, 400
+
+
