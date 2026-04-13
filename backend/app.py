@@ -173,7 +173,8 @@ def get_user(userId):
 
 
 @app.route("/cart", methods=["GET"])
-def get_cart(userId):
+def get_cart():
+    userId = flask.request.args.get("userId") 
     user = get_user(userId)
     if not user:
         return {"success": False, "message": "User not found"}, 400
@@ -280,7 +281,8 @@ def place_orders(userId):
     }, 200
 
 @app.route("/orders", methods=["GET"])
-def order_history(userId):
+def order_history():
+    userId = flask.request.args.get("userId")
     user = get_user(userId)
     if not user:
         return {"success": False, "message": "User not found"}, 400
