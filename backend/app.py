@@ -12,11 +12,14 @@ cors = flask_cors.CORS(app)
 
 users = []
 
+password1 = bcrypt.hashpw("IceCream!23".encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+password2 = bcrypt.hashpw("IceCream!23".encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
 user1 = {
 "id": 1,
 "username": "sweet_alice",
 "email": "alice@example.com",
-"password_hash": "$2b$12$examplehashedvalue",
+"password_hash": password1, 
 "cart": [
 {
 "flavorId": 2,
@@ -45,7 +48,7 @@ user2 = {
     "id": 2,
     "username": "cool_ben",
     "email": "benjamin@example.com",
-    "password_hash": "$2b$12$anotherexamplehashedvalue",
+    "password_hash": password2,  
     "cart": [
         {
             "flavorId": 3,
@@ -203,14 +206,25 @@ def get_cart():
 def add_to_cart():
     data = flask.request.get_json()
     userId = data.get("userId")
-    flavor = data.get("flavor")
+    flavorId = data.get("flavorId")  
     user = get_user(userId)
     if not user:
         return {"success": False, "message": "User not found"}, 400
 
+    with open("flavors.json") as f:
+        all_flavors = json.load(f)
+    flavor = None
+    for fl in all_flavors:
+        if fl["id"] == flavorId:
+            flavor = fl
+            break
+    if not flavor:
+        return {"success": False, "message": "Flavor not found"}, 400
+
     for item in user["cart"]:
-        if item["flavorId"] == flavor["id"]:
+        if item["flavorId"] == flavorId:  
             return {"success": False, "message": "Item already in cart"}, 400
+
     user["cart"].append({
         "flavorId": flavor["id"],
         "name": flavor["name"],
@@ -230,22 +244,17 @@ def update_cart():
     data = flask.request.get_json()
     userId = data.get("userId")
     flavorId = data.get("flavorId")
-    quantity = data.get("qunatity")
-    #alidate that the user exists.
+    quantity = data.get("quantity")  
     user = get_user(userId)
     if not user:
         return {"success": False, "message": "User not found"}, 400
-#• Validate that the flavor exists in the user’s cart.
-#• Validate that quantity >= 1.
+
     if quantity < 1:
         return {"success": False, "message": "Invalid quantity"}, 400
-
-#• Update the cart item to the exact quantity provided.
 
     for item in user["cart"]:
         if item["flavorId"] == flavorId:
             item["quantity"] = quantity
-            #• Return the updated cart and a message.
             return {
                 "success": True,
                 "message": "Cart updated successfully.",
@@ -255,7 +264,7 @@ def update_cart():
     return {"success": False, "message": "Item not found in cart"}, 400
 
 @app.route("/cart", methods=["DELETE"])
-def delete_from_cart(): #def delete__cart(userId, flavorId):
+def delete_from_cart():
     data = flask.request.get_json()
     userId = data.get("userId")
     flavorId = data.get("flavorId")
@@ -264,7 +273,7 @@ def delete_from_cart(): #def delete__cart(userId, flavorId):
     if not user:
         return {"success": False, "message": "User not found"}, 400
 
-    user["cart"] = [ #all except for those that have flavorid
+    user["cart"] = [
         item for item in user["cart"]
         if item["flavorId"] != flavorId
     ]
@@ -276,7 +285,9 @@ def delete_from_cart(): #def delete__cart(userId, flavorId):
     }, 200
 
 @app.route("/orders", methods=["POST"])
-def place_orders(userId):
+def place_orders():  
+    data = flask.request.get_json()  
+    userId = data.get("userId")  
     user = get_user(userId)
     if not user:
         return {"success": False, "message": "User not found"}, 400
@@ -284,7 +295,10 @@ def place_orders(userId):
         return {"success": False, "message": "Cart is empty"} , 400
     total = 0
     for item in user["cart"]:
-        total += item["price"] * item["quantity"]
+        price = item["price"]
+        if isinstance(price, str):
+            price = float(price.replace("$", ""))
+        total += price * item["quantity"]
     new_order_id = 1
     if user["orders"]:
         new_order_id = max(el["orderId"] for el in user["orders"]) + 1
@@ -292,7 +306,7 @@ def place_orders(userId):
         "orderId": new_order_id,
         "items": user["cart"].copy(),
         "total": round(total, 2),
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
     }
     user["orders"].append(order)
 
@@ -306,7 +320,7 @@ def place_orders(userId):
 @app.route("/orders", methods=["GET"])
 def order_history():
     userId = flask.request.args.get("userId")
-    user = get_user(userId)
+    user = get_user(int(userId)) 
     if not user:
         return {"success": False, "message": "User not found"}, 400
     
@@ -318,3 +332,6 @@ def order_history():
   "message": "Order history loaded.",
   "orders": user_orders
 }, 200
+
+if __name__ == '__main__':
+    app.run(debug=True)
