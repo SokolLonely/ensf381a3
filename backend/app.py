@@ -95,20 +95,23 @@ def is_valid_password(password):
         return False
     if not re.search(r"[0-9]", password):
         return False
-    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+    if not re.search(r"[&*(!@#$%^),.?\":{}|<>]", password):
         return False
     return True
+
+
+@app.route("/signup", methods=["POST"])
 def registration(username, email, password):
     if not is_valid_username(username):
-        return {"success": False, "error": "Invalid username format"}, 400
+        return {"success": False, "message": "Invalid username format"}, 400
     if not is_valid_email(email):
-        return {"success": False, "error": "Invalid email format"}, 400
+        return {"success": False, "message": "Invalid email format"}, 400
     if not is_valid_password(password):
-        return {"success": False, "error": "Invalid password format"}, 400
+        return {"success": False, "message": "Invalid password format"}, 400
     if any(user['username'] == username for user in users):
-        return {"success": False, "error": "Username already exists"}, 400
+        return {"success": False, "message": "Username already exists"}, 400
     if any(user['email'] == email for user in users):
-        return {"success": False, "error": "Email already exists"}, 400
+        return {"success": False, "message": "Email already exists"}, 400
     password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     new_user = {
         "id": len(users) + 1,
@@ -121,7 +124,7 @@ def registration(username, email, password):
     users.append(new_user)
     return {"success": True,"message": "Registration successful."}, 201
 
-
+@app.route("/login", methods=["POST"])
 def login(username, password):
     currentUser = None
     for el in users:
@@ -131,11 +134,15 @@ def login(username, password):
         return {
                 "success": False,
                 "message": "Invalid username or password."}, 400
-    if currentUser["password_hash"] == bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()):
-        { "success": True, "message": "Login successful.", "userId": currentUser["id"], "username": currentUser["username"]}, 201
+    if bcrypt.checkpw(password.encode('utf-8'), currentUser["password_hash"].encode('utf-8')):
+
+        return { "success": True, "message": "Login successful.", "userId": currentUser["id"], "username": currentUser["username"]}, 200
+
+
+@app.route("/reviews", methods=["GET"])
 def reviews():
   try:
-    with open ("reviews.js") as f:
+    with open ("reviews.json") as f:
         reviews = json.load(f)
         rv = random.sample(reviews, 2)
         return {
@@ -145,17 +152,18 @@ def reviews():
   except:
     return { "success": False}, 400
     
-
+@app.route("/flavors", methods=["GET"])
 def flavors():
   try:
-    with open ("flavors.js") as f:
+    with open ("flavors.json") as f:
         flavors = json.load(f)
         return {
 "success": True,
 "message": "Flavors loaded.",
-"reviews": flavors}, 201
+"flavors": flavors}, 201
   except:
     return { "success": False}, 400
+
     
 
 
