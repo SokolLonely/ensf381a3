@@ -146,7 +146,17 @@ def reviews():
     return { "success": False}, 400
     
 
-
+def flavors():
+  try:
+    with open ("flavors.js") as f:
+        flavors = json.load(f)
+        return {
+"success": True,
+"message": "Flavors loaded.",
+"reviews": flavors}, 201
+  except:
+    return { "success": False}, 400
+    
 
 
 
