@@ -5,6 +5,7 @@ import flask_cors
 import re
 import json
 import random
+import time
 app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = flask_cors.CORS(app)
@@ -249,3 +250,46 @@ def delete_from_cart(userId, flavorId): #def delete__cart(userId, flavorId):
         "message": "Flavor removed from cart.",
         "cart": user["cart"]
     }, 200
+
+@app.route("/orders", methods=["POST"])
+def place_orders(userId):
+    user = get_user(userId)
+    if not user:
+        return {"success": False, "message": "User not found"}, 400
+    if len(user["cart"]) == 0:
+        return {"success": False, "message": "Cart is empty"} , 400
+    total = 0
+    for item in user["cart"]:
+        total += item["price"] * item["quantity"]
+    new_order_id = 1
+    if user["orders"]:
+        new_order_id = max(el["orderId"] for el in user["orders"]) + 1
+    order = {
+        "orderId": new_order_id,
+        "items": user["cart"].copy(),
+        "total": round(total, 2),
+        "timestamp": time.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    user["orders"].append(order)
+
+    user["cart"] = []
+    return {
+        "success": True,
+        "message": "Order placed successfully.",
+        "orderId": new_order_id
+    }, 200
+
+@app.route("/orders", methods=["GET"])
+def order_history(userId):
+    user = get_user(userId)
+    if not user:
+        return {"success": False, "message": "User not found"}, 400
+    
+    user_orders = []
+    for el in user["orders"]:
+        user_orders.append(el)
+    return {
+  "success": True,
+  "message": "Order history loaded.",
+  "orders": user_orders
+}, 200
