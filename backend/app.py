@@ -3,7 +3,8 @@ import bcrypt
 import flask
 import flask_cors
 import re
-
+import json
+import random
 app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = flask_cors.CORS(app)
@@ -132,6 +133,18 @@ def login(username, password):
                 "message": "Invalid username or password."}, 400
     if currentUser["password_hash"] == bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()):
         { "success": True, "message": "Login successful.", "userId": currentUser["id"], "username": currentUser["username"]}, 201
+def reviews():
+  try:
+    with open ("reviews.js") as f:
+        reviews = json.load(f)
+        rv = random.sample(reviews, 2)
+        return {
+"success": True,
+"message": "Reviews loaded.",
+"reviews": rv}, 201
+  except:
+    return { "success": False}, 400
+    
 
 
 
