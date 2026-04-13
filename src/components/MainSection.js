@@ -1,17 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import flavors from '../data/flavors';
-import reviews from '../data/reviews';
+
+const API_BASE = 'http://localhost:5000';
 
 function MainSection() {
   const [featuredFlavors, setFeaturedFlavors] = useState([]);
   const [featuredReviews, setFeaturedReviews] = useState([]);
 
   useEffect(() => {
-    const shuffledFlavors = [...flavors].sort(() => Math.random() - 0.5);
-    setFeaturedFlavors(shuffledFlavors.slice(0, 3));
+    // Fetch flavors from backend and pick 3 random
+    fetch(`${API_BASE}/flavors`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.flavors) {
+          const shuffled = [...data.flavors].sort(() => Math.random() - 0.5);
+          setFeaturedFlavors(shuffled.slice(0, 3));
+        }
+      })
+      .catch((err) => console.error('Error fetching flavors:', err));
 
-    const shuffledReviews = [...reviews].sort(() => Math.random() - 0.5);
-    setFeaturedReviews(shuffledReviews.slice(0, 2));
+    // Fetch 2 random reviews from backend
+    fetch(`${API_BASE}/reviews`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.reviews) {
+          setFeaturedReviews(data.reviews);
+        }
+      })
+      .catch((err) => console.error('Error fetching reviews:', err));
   }, []);
 
   const renderStars = (rating) => {
@@ -24,8 +39,7 @@ function MainSection() {
         <h3>About Sweet Scoop Ice Cream</h3>
         <p>
           Sweet Scoop Ice Cream is a family-owned business that has been serving delicious ice cream
-          since 1990. We pride ourselves on using only the freshest ingredients to create our unique
-          flavors. Come visit us and treat yourself to a sweet scoop today!
+          since 1990. We pride ourselves on using only the freshest ingredients to create our unique flavors. 
         </p>
       </div>
 

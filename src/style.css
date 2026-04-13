@@ -9,6 +9,7 @@ header {
   background: #f9e2c8;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   padding: 15px 30px;
   border-bottom: 4px solid #e4b48c;
@@ -93,6 +94,7 @@ img{
   max-width: 800px;
   margin: 40px auto;
   text-align: center;
+  min-height: 72vh;
 }
 
 .content{
@@ -146,3 +148,35 @@ img{
   text-align: center;
   margin: 0 auto;
 }
+
+.order-history-card {
+  background: #fff8ee;
+  border: 2px solid #e4b48c;
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 500px;
+  margin: 15px auto;
+  text-align: left;
+}
+ 
+.order-history-card h4 {
+  color: #c94c4c;
+  margin-top: 0;
+}
+ 
+.order-date {
+  color: #999;
+  font-size: 14px;
+}
+
+.auth-btn {
+  background: #f28c8c;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+ 

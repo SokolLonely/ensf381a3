@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import DisplayStatus from './DisplayStatus';
+
+const API_BASE = 'http://localhost:5000';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -15,7 +17,7 @@ function LoginForm() {
     if (shouldRedirect) {
       const timer = setTimeout(() => {
         navigate('/flavors');
-      }, 2000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [shouldRedirect, navigate]);
@@ -26,29 +28,26 @@ function LoginForm() {
       setMessage('Username and password cannot be empty.');
       return;
     }
-    if (password.length < 8) {
-      setMessageType('error');
-      setMessage('Password must be at least 8 characters.');
-      return;
-    }
 
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users');
-      const users = await response.json();
+      const response = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
 
-      const userFound = users.find(
-        (user) =>
-          user.username.toLowerCase() === username.toLowerCase() &&
-          user.email === password
-      );
+      const data = await response.json();
 
-      if (userFound) {
+      if (data.success) {
+        // Store login state in localStorage
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('username', data.username);
         setMessageType('success');
-        setMessage('Login successful');
+        setMessage(data.message || 'Login successful.');
         setShouldRedirect(true);
       } else {
         setMessageType('error');
-        setMessage('Invalid username or password.');
+        setMessage(data.message || 'Invalid username or password.');
       }
     } catch (error) {
       setMessageType('error');
@@ -56,34 +55,41 @@ function LoginForm() {
     }
   };
 
-return (
-  <div className="main-section" style={{ minHeight: '72vh' }}>
-    <div>
-      <h2>Login</h2>
+  return (
+    <div className="main-section" style={{ minHeight: '72vh' }}>
       <div>
-        <label>Username: </label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <h2>Login</h2>
+        <div>
+          <label>Username</label>
+          <br />
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div style={{ marginTop: '10px' }}>
+          <label>Password</label>
+          <br />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <button onClick={handleLogin}>Login</button>
+        </div>
+        <div>
+          <a href="#">Forgot Password?</a>
+        </div>
+        <div>
+          <p>Need an account? <Link to="/signup">Sign up</Link></p>
+        </div>
+        {message && <DisplayStatus type={messageType} message={message} />}
       </div>
-      <div style={{ marginTop: '10px' }}>
-        <label>Password: </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button onClick={handleLogin}>Login</button>
-      <div>
-        <a>Forgot Password?</a>
-      </div>
-      {message && <DisplayStatus type={messageType} message={message} />}
     </div>
-  </div>
-);
+  );
 }
 
 export default LoginForm;
